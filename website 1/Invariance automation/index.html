@@ -1,0 +1,493 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Invariance automation - PCB Manufacturing & Assembly</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: "Montserrat", sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900">
+  <!-- Header -->
+  <header class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+    <div
+      class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4"
+    >
+      <a href="#" class="flex items-center space-x-3">
+        <img
+          src="https://i.ibb.co/ksPHKwqB/logo-invariance-auto.png"
+          alt="PCB Power logo with blue background and white text"
+          class="h-10 w-auto"
+          loading="lazy"
+          width="150"
+          height="40"
+        />
+      <nav class="hidden md:flex items-center space-x-6 font-semibold text-gray-700" aria-label="Primary Navigation">
+            <div class="flex space-x-6">
+                <a href="#home" class="hover:text-blue-600 transition">Home</a>
+                <a href="product.html" class="hover:text-blue-600 transition">Products</a>
+                 <!-- Services dropdown -->
+                  <div class="dropdown" id="services-dropdown">
+                    <button class="dropbtn" aria-haspopup="true" aria-expanded="false" id="services-button">Services ▾</button>
+                    <div class="dropdown-content" role="menu" aria-labelledby="services-button">
+                    <a href="pcbfabrication.html" role="menuitem" tabindex="0" class="hover:text-blue-600 transition">PCB Fabrication</a>
+                    <a href="pcbassembly.html" tabindex="0" role="menuitem" class="hover:text-blue-600 transition">PCB Assembly</a>
+                    </div>
+                 </div>  
+<script>
+    document.getElementById('services-button').addEventListener('click', function() {
+        const dropdownContent = document.querySelector('.dropdown-content');
+        dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+    });
+    window.addEventListener('click', function(event) {
+        if (!event.target.matches('.dropbtn')) {
+            const dropdowns = document.getElementsByClassName("dropdown-content");
+            for (let i = 0; i < dropdowns.length; i++) {
+                const openDropdown = dropdowns[i];
+                if (openDropdown.style.display === 'block') {
+                    openDropdown.style.display = 'none';
+                }
+            }
+        }
+    });
+
+</script>
+<style>
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    .dropdown-content {
+        display: none; /* Hidden by default */
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+    .dropdown-content a:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+                
+                
+  <a href="#about" class="hover:text-blue-600 transition">About</a>
+  <a href="#contact" class="hover:text-blue-600 transition">Contact</a>
+  <a href="login.html" class="hover:text-blue-600 transition">Login</a>
+</body>
+</html>
+</content>
+</create_file>
+
+    </nav>
+      <button
+        id="menu-btn"
+        aria-label="Toggle menu"
+        class="md:hidden text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+        <i class="fas fa-bars fa-lg"></i>
+        >
+      </button>
+    </div>
+    <body>
+      <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+          <nav class="flex flex-col items-center space-y-2 px-6 py-4 font-family:'poppins' text-gray-700" aria-label="Mobile Navigation">
+              
+              <a href="#home" class="hover:text-blue-600 transition mb-2">Home</a>
+              <a href="#products" class="hover:text-blue-600 transition mb-2">Products</a>
+              <a href="#services" class="hover:text-blue-600 transition mb-2">Services</a>
+              <a href="#about" class="hover:text-blue-600 transition mb-2">About</a>
+              <a href="#contact" class="hover:text-blue-600 transition">Contact</a>
+              <a href="#Login" class="hover:text-blue-600 transition">Login</a>
+          </nav>
+      </div>
+  </body>
+    </header>
+
+  <!-- Hero Section -->
+  <section
+    id="home"
+    class="pt-24 bg-gradient-to-r from-blue-700 to-cyan-600 text-white"
+  >
+    <div
+      class="max-w-7xl mx-auto px-6 py-20 flex flex-col-reverse md:flex-row items-center md:items-start md:space-x-12"
+    >
+      <div class="md:w-1/2 text-center md:text-left">
+        <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-6">
+          PCB Manufacturing &amp; Assembly
+          <br />
+          <span class="text-yellow-400">Fast, Reliable &amp; Affordable</span>
+        </h1>
+        <p class="text-lg sm:text-xl mb-8 max-w-xl mx-auto md:mx-0">
+          High-quality printed circuit boards with quick turnaround times and
+          competitive pricing. Trusted by engineers worldwide.
+        </p>
+        <div
+          class="flex flex-col sm:flex-row sm:space-x-6 space-y-4 sm:space-y-0 justify-center md:justify-start"
+        >
+          <a
+            href="#products"
+            class="inline-block bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-8 py-3 rounded shadow-lg transition"
+            >Get a Quote</a
+          >
+          <a
+            href="#contact"
+            class="inline-block border border-white hover:border-yellow-400 hover:text-yellow-400 px-8 py-3 rounded font-semibold transition"
+            >Contact Sales</a
+          >
+        </div>
+      </div>
+      <div class="md:w-1/2 mb-12 md:mb-0 flex justify-center">
+        <img
+          src="https://storage.googleapis.com/a1aa/image/939174b6-c4f4-4ed8-5028-3385bac0e630.jpg"
+          alt="Close-up image of a PCB manufacturing machine with circuit board and machinery details"
+          class="rounded-lg shadow-lg max-w-full h-auto"
+          loading="lazy"
+          width="600"
+          height="400"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section id="products" class="max-w-7xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Our Products</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div
+        class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center hover:shadow-xl transition"
+      >
+        <img
+          src="https://storage.googleapis.com/a1aa/image/706a6edd-4bea-4cc7-a6e4-37ed8cb85aea.jpg"
+          alt="Single-sided printed circuit board with green solder mask and visible copper traces"
+          class="mb-4"
+          loading="lazy"
+          width="100"
+          height="100"
+        />
+        <h3 class="text-xl font-semibold mb-2">Single-Sided PCB</h3>
+        <p class="text-gray-600">
+          Cost-effective PCBs with components mounted on one side, ideal for
+          simple circuits.
+        </p>
+      </div>
+      <div
+        class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center hover:shadow-xl transition"
+      >
+        <img
+          src="https://storage.googleapis.com/a1aa/image/c8e72d67-ccfc-4f80-84fe-c13906e85722.jpg"
+          alt="Double-sided printed circuit board with components and copper traces on both sides"
+          class="mb-4"
+          loading="lazy"
+          width="100"
+          height="100"
+        />
+        <h3 class="text-xl font-semibold mb-2">Double-Sided PCB</h3>
+        <p class="text-gray-600">
+          PCBs with components and traces on both sides for more complex
+          circuits.
+        </p>
+      </div>
+      <div
+        class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center hover:shadow-xl transition"
+      >
+        <img
+          src="https://storage.googleapis.com/a1aa/image/047f7740-09bf-4ebf-f093-dc534ade094e.jpg"
+          alt="Multi-layer printed circuit board showing stacked layers and complex routing"
+          class="mb-4"
+          loading="lazy"
+          width="100"
+          height="100"
+        />
+        <h3 class="text-xl font-semibold mb-2">Multi-Layer PCB</h3>
+        <p class="text-gray-600">
+          Advanced PCBs with multiple layers for high-density and high-speed
+          applications.
+        </p>
+      </div>
+      <div
+        class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center hover:shadow-xl transition"
+      >
+        <img
+          src="https://storage.googleapis.com/a1aa/image/476ceefe-2ec7-4f9e-cadd-c3759d251e6f.jpg"
+          alt="Flexible printed circuit board rolled showing bendable thin circuit"
+          class="mb-4"
+          loading="lazy"
+          width="100"
+          height="100"
+        />
+        <h3 class="text-xl font-semibold mb-2">Flexible PCB</h3>
+        <p class="text-gray-600">
+          Bendable and lightweight PCBs for wearable and compact electronic
+          devices.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="bg-gray-50 py-20">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Our Services</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div
+          class="bg-white rounded-lg shadow-lg p-8 flex flex-col items-center text-center hover:shadow-xl transition"
+        >
+          <img
+            src="https://storage.googleapis.com/a1aa/image/70dc7bd0-94dd-4e4a-7c38-257a3b58d7ce.jpg"
+            alt="PCB fabrication process showing circuit board and manufacturing tools"
+            class="mb-6 rounded"
+            loading="lazy"
+            width="150"
+            height="150"
+          />
+          <h3 class="text-xl font-semibold mb-3">PCB Fabrication</h3>
+          <p class="text-gray-600">
+            Precision manufacturing of single-sided, double-sided, and
+            multi-layer PCBs with quick turnaround.
+          </p>
+        </div>
+        <div
+          class="bg-white rounded-lg shadow-lg p-8 flex flex-col items-center text-center hover:shadow-xl transition"
+        >
+          <img
+            src="https://storage.googleapis.com/a1aa/image/458cf87f-c849-4157-620d-d3b8d399e428.jpg"
+            alt="PCB assembly process with soldering and electronic components"
+            class="mb-6 rounded"
+            loading="lazy"
+            width="150"
+            height="150"
+          />
+          <h3 class="text-xl font-semibold mb-3">PCB Assembly</h3>
+          <p class="text-gray-600">
+            Complete PCB assembly services including SMT, through-hole, and
+            mixed technology assembly.
+          </p>
+        </div>
+        <div
+          class="bg-white rounded-lg shadow-lg p-8 flex flex-col items-center text-center hover:shadow-xl transition"
+        >
+          <img
+            src="https://storage.googleapis.com/a1aa/image/3ffd192d-abe8-4ffa-38b5-617dd5009738.jpg"
+            alt="PCB testing and inspection with magnifying glass and circuit board"
+            class="mb-6 rounded"
+            loading="lazy"
+            width="150"
+            height="150"
+          />
+          <h3 class="text-xl font-semibold mb-3">Testing &amp; Inspection</h3>
+          <p class="text-gray-600">
+            Comprehensive testing and quality inspection to ensure your PCBs
+            meet the highest standards.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section class="max-w-7xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">
+      Why Choose Invariance automation?
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 text-center">
+      <div>
+        <i class="fas fa-shipping-fast text-5xl text-blue-600 mb-4"></i>
+        <h3 class="text-xl font-semibold mb-2">Fast Turnaround</h3>
+        <p class="text-gray-600">Prototypes in 48 hours, production in 3-5 days.</p>
+      </div>
+      <div>
+        <i class="fas fa-dollar-sign text-5xl text-blue-600 mb-4"></i>
+        <h3 class="text-xl font-semibold mb-2">Competitive Pricing</h3>
+        <p class="text-gray-600">Affordable pricing without compromising quality.</p>
+      </div>
+      <div>
+        <i class="fas fa-cogs text-5xl text-blue-600 mb-4"></i>
+        <h3 class="text-xl font-semibold mb-2">Advanced Technology</h3>
+        <p class="text-gray-600">inbusiness equipment and processes.</p>
+      </div>
+      <div>
+        <i class="fas fa-check-circle text-5xl text-blue-600 mb-4"></i>
+        <h3 class="text-xl font-semibold mb-2">Quality Assurance</h3>
+        <p class="text-gray-600">Automated optical inspection for every order.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="bg-gray-50 py-20">
+    <div
+      class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center md:space-x-12"
+    >
+      <div class="md:w-1/2 mb-12 md:mb-0">
+        <img
+          src="https://storage.googleapis.com/a1aa/image/7e41d647-1f1c-42a3-c5e3-f2ec023a5976.jpg"
+          alt="PCB Power team working in a modern PCB manufacturing factory with machines and engineers"
+          class="rounded-lg shadow-lg w-full h-auto"
+          loading="lazy"
+          width="600"
+          height="400"
+        />
+      </div>
+      <div class="md:w-1/2">
+        <h2 class="text-3xl font-bold mb-6 text-gray-900">About Invariance automation</h2>
+        <p class="text-gray-700 mb-6 leading-relaxed">
+          Invariance automation is a trusted leader in printed circuit board manufacturing
+          and assembly. With over 5 years of experience, we provide high
+          quality PCBs with fast turnaround and competitive pricing. Our
+          advanced facilities and expert team ensure your projects meet the
+          highest standards.
+        </p>
+        <p class="text-gray-700 leading-relaxed">
+          We serve industries including automotive, Surface mounted technology, and
+          consumer electronics. Our commitment to quality and customer
+          satisfaction makes us your ideal partner for Invariance automation.
+        </p>
+      </div>
+    </div>
+  </section>
+  <!--contact section-->
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #000000;
+    color: #eee;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+  main {
+    flex: 1;
+    padding: 2rem;
+  }
+  footer {
+    background-color: #111111;
+    color: #eee;
+    padding: 2rem 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-top: 3px solid #444444;
+  }
+  .footer-section {
+    flex: 1 1 250px;
+    margin: 0.5rem 1rem;
+  }
+  .footer-section h3 {
+    margin-top: 0;
+    font-size: 1.4rem;
+    border-bottom: 2px solid #e91e63;
+    padding-bottom: 0.5rem;
+    color: #e91e63;
+  }
+  .contact-info p {
+    margin: 0.4rem 0;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  .contact-info a {
+    color: #e91e63;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .contact-info a:hover,
+  .contact-info a:focus {
+    color: #ff6699;
+    text-decoration: underline;
+  }
+  .footer-social {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  .footer-social a {
+    color: #e91e63;
+    text-decoration: none;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #222222;
+    box-shadow: 0 0 8px rgba(233,30,99,0.8);
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .footer-social a:hover,
+  .footer-social a:focus {
+    background-color: #e91e63;
+    color: white;
+    box-shadow: 0 0 14px #e91e63;
+  }
+  .footer-social svg {
+    width: 24px;
+    height: 24px;
+  }
+  @media (max-width: 600px) {
+    footer {
+      flex-direction: column;
+      padding: 2rem 1.5rem;
+    }
+    .footer-section {
+      margin: 1rem 0;
+    }
+    .footer-social {
+      justify-content: flex-start;
+    }
+  }
+</style>
+
+<footer>
+  <div class="footer-section contact-info">
+    <h3>Contact Us</h3>
+    <p>Company Address:<br />TP-102 Technopark@IITK<br />Uttar pradesh,India</p>
+    <p>Office Email: <a href="mailto:automationinvariance@gmail.com">automationinvariance@gmail.com</a></p>
+    <p>Contact Email: <a href="mailto:arukarmakar@gmail.com">arukarmakar@gmail.com</a></p>
+    <p>Contact Email: <a href="mailto:chintu.gurbani@gmail.com">chintu.gurbani@gmail.com</a></p>
+    <p>Phone: <a href="tel:+12345678900">+91 7755839309</a></p>
+    <p>Phone: <a href="tel:+12345678900">+91 7579183691</a></p>
+  </div>
+    <p style="margin-top: 30px;">&copy; 2020 Invariance Automation All rights reserved.</p>
+  </div>
+</footer>
+
+</footer>
+  
+  <script>
+    const menuBtn = document.getElementById("menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    menuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+    fetch('http://localhost:3000/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email: 'user@example.com', password: '1234' })
+})
+
+   </script>
+
+
+</body>
+</html>

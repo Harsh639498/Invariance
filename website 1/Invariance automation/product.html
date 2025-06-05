@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Products</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+        header {
+            background-color: #232f3e;
+            color: white;
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        header .logo {
+            cursor: pointer;
+        }
+        header input[type="search"] {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: none;
+            width: 300px;
+            max-width: 100%;
+            font-size: 1rem;
+        }
+        nav {
+            background-color: #37475a;
+            color: white;
+            padding: 0.5rem 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.375rem 0.75rem;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        nav a:hover {
+            background-color: #485769;
+        }
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
+            gap: 1.5rem;
+        }
+        .product-card {
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .product-card:hover {
+            box-shadow: 0 5px 15px rgb(0 0 0 / 0.15);
+        }
+        .product-image {
+            width: 100%;
+            height: 180px;
+            object-fit: contain;
+            border-bottom: 1px solid #ddd;
+            background-color: #f0f0f0;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+        .product-details {
+            padding: 1rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product-title {
+            font-size: 1.1rem;
+            margin: 0 0 0.45rem 0;
+            font-weight: 600;
+            color: #111;
+        }
+        .product-description {
+            font-size: 0.9rem;
+            color: #555;
+            flex-grow: 1;
+            margin-bottom: 1rem;
+        }
+        .product-price {
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: #b12704;
+        }
+        .product-actions {
+            margin-top: auto;
+        }
+        .btn {
+            background-color: #ffd814;
+            border: none;
+            width: 100%;
+            padding: 0.6rem 0;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #111;
+            transition: background-color 0.3s ease;
+            justify-content: space-between;
+        }
+        .btn:hover {
+            background-color: #f7ca00;
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #232f3e;
+            color: white;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-content {
+            background-color: #fff;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: transparent;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #333;
+            font-weight: 700;
+        }
+        .modal-image {
+            width: 100%;
+            max-height: 250px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+        }
+        .modal-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #111;
+        }
+        .modal-price {
+            color: #b12704;
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+        .modal-description {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            color: #444;
+        }
+        .modal-specifications {
+            margin-bottom: 1rem;
+        }
+        .modal-customization {
+            margin-bottom: 1rem;
+        }
+        .modal-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+        .login-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 9998;
+        }
+        .login-overlay.active {
+            display: flex;
+        }
+        .login-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+  &nbsp;
+  &nbsp;
+
+<header>
+    <div class="logo">Invariance Automation</div>
+    <input type="search" placeholder="Search machines, PCBs and more..." aria-label="Search products" />
+</header>
+&nbsp;
+&nbsp;
+
+<nav>
+    <a href="#">All Products</a>
+    <a href="#">Pick and Place Machines</a>
+    <a href="#">AOI Machines</a>
+    <a href="#">PCB Boards</a>
+    <a href="#">Accessories</a>
+</nav>
+&nbsp;
+&nbsp;
+
+<main>
+    <div class="product-grid">
+        <!-- Sample product card template -->
+        <div class="product-card" tabindex="0" data-title="Head Desktop SMT Pick and Place Machine (Model no.- INVSMT-20E)" data-price="Rs.2,50,000.00" data-img="https://via.placeholder.com/300x180?text=Pick+and+Place" data-description="To automate the process of picking up electronic components, often in the form of tiny SMDs (Surface Mount Devices), and accurately placing them onto a printed circuit board (PCB).">
+            <img class="product-image" src="https://via.placeholder.com/300x180?text=Pick+and+Place" alt="Pick and Place Machine" />
+            <div class="product-details">
+                <h3 class="product-title">Head Desktop SMT Pick and Place Machine (Model no.- INVSMT-20E)</h3>
+                <p class="product-description">To automate the process of picking up electronic components, often in the form of tiny SMDs (Surface Mount Devices), and accurately placing them onto a printed circuit board (PCB).</p>
+                <div class="product-price">Rs.2,50,000.00</div>
+                <div class="product-actions">
+                    <button class="btn view-details-btn" type="button">View Details</button>
+                    <button class="btn buy-now-btn" type="button">Buy Now</button>
+                </div>
+            </div>
+        </div>
+        <div class="product-card" tabindex="0" data-title="Head Desktop SMT Pick and Place Machine (Model no.- INVSMT-20P)" data-price="Rs.2,80,000.00" data-img="https://via.placeholder.com/300x180?text=Pick+and+Place" data-description="To automate the process of picking up electronic components, often in the form of tiny SMDs (Surface Mount Devices), and accurately placing them onto a printed circuit board (PCB).">
+            <img class="product-image" src="https://via.placeholder.com/300x180?text=Pick+and+Place" alt="Pick and Place Machine" />
+            <div class="product-details">
+                <h3 class="product-title">Head Desktop SMT Pick and Place Machine (Model no.- INVSMT-20P)</h3>
+                <p class="product-description">To automate the process of picking up electronic components, often in the form of tiny SMDs (Surface Mount Devices), and accurately placing them onto a printed circuit board (PCB).</p>
+                <div class="product-price">Rs.2,80,000.00</div>
+                <div class="product-actions">
+                    <button class="btn view-details-btn" type="button">View Details</button>
+                    <button class="btn buy-now-btn" type="button">Buy Now</button>
+                </div>
+            </div>
+        </div>
+        <div class="product-card" tabindex="0" data-title="Head Vertical SMT Pick and Place Machine (Model no.- INVSMT-61P)" data-price="Rs.6,30,000.00" data-img="https://via.placeholder.com/300x180?text=Pick+and+Place" data-description="To automate the process of picking up electronic components, often in the form of tiny SMDs (Surface Mount Devices), and accurately placing them onto a printed circuit board (PCB).">
+            <img class="product-image" src="https://via.placeholder.com/300x180?text=Pick+and+Place" alt="Pick and Place Machine" />
+            <div class="product-details">
+                <h3 class="product-title">Head Vertical SMT Pick and Place Machine (Model no.- INVSMT-61P)</h3>
+                <p class="product-description">To automate the process of picking up electronic components, often in the form of tiny SMDs (Surface Mount Devices), and accurately placing them onto a printed circuit board (PCB).</p>
+                <div class="product-price">Rs.6,30,000.00</div>
+                <div class="product-actions">
+                    <button class="btn view-details-btn" type="button">View Details</button>
+                    <button class="btn buy-now-btn" type="button">Buy Now</button>
+                </div>
+            </div>
+        </div>
+        <div class="product-card" tabindex="0" data-title="Head Vertical SMT Pick and Place Machine (Model no.- INVSMT-20E)" data-price="Rs.4,30,000.00" data-img="https://via.placeholder.com/300x180?text=Pick+and+Place" data-description="To automate the process of picking up electronic components, often in the form of tiny SMDs (Surface Mount Devices), and accurately placing them onto a printed circuit board (PCB).">
+            <img class="product-image" src="https://via.placeholder.com/300x180?text=Pick+and+Place" alt="Pick and Place Machine" />
+            <div class="product-details">
+                <h3 class="product-title">Head Desktop SMT Pick and Place Machine (Model no.- INVSMT-21P)</h3>
+                <p class="product-description">To automate the process of picking up electronic components, often in the form of tiny SMDs (Surface Mount Devices), and accurately placing them onto a printed circuit board (PCB).</p>
+                <div class="product-price">Rs.4,30,000.00</div>
+                <div class="product-actions">
+                    <button class="btn view-details-btn" type="button">View Details</button>
+                    <button class="btn buy-now-btn" type="button">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Modal -->
+<div class="modal-overlay" id="product-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-content">
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+        <img src="" alt="" class="modal-image" />
+        <h2 class="modal-title" id="modal-title"></h2>
+        <div class="modal-price"></div>
+        <p class="modal-description"></p>
+        <div class="modal-specifications">
+            <h3>Specifications</h3>
+            <ul id="modal-spec-list">
+                <li>Component 4000 per hour</li>
+                <li>Auto feedre support</li>
+                <li>Power usage 360w</li>
+            </ul>
+        </div>
+        <div class="modal-customization">
+            <label for="customization">Customization Options:</label>
+            <select id="customization">
+                <option value="none">None</option>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+            </select>
+        </div>
+        <div class="modal-actions">
+            <button class="btn add-to-cart-btn">Add to Cart</button>
+        </div>
+    </div>
+</div>
+
+<!-- Login Overlay -->
+<div class="login-overlay" id="login-overlay">
+    <div class="login-content">
+        <h2>Login Required</h2>
+        <p>Please log in to continue with your purchase.</p>
+        <button class="btn" id="login-btn">Login</button>
+        <button class="btn" id="cancel-login-btn">Cancel</button>
+    </div>
+</div>
+
+<footer>
+    &copy; 2020 Invariance Automation - All rights reserved.
+</footer>
+&nbsp;
+&nbsp;
+
+<script>
+   // Attach click on all buy now buttons
+    document.querySelectorAll('.buy-now-btn').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const productCard = e.target.closest('.product-card');
+            const productPrice = productCard.dataset.price;
+            const productTitle = productCard.dataset.title;
+            // Redirect to payment page with product details
+            window.location.href = `payment.html?title=${encodeURIComponent(productTitle)}&price=${productPrice}`;
+        });
+    });
+    // Modal elements
+    const modal = document.getElementById('product-modal');
+    const modalCloseBtn = modal.querySelector('.modal-close');
+    const modalImage = modal.querySelector('.modal-image');
+    const modalTitle = modal.querySelector('.modal-title');
+    const modalPrice = modal.querySelector('.modal-price');
+    const modalDescription = modal.querySelector('.modal-description');
+    const modalSpecList = document.getElementById('modal-spec-list');
+    const buyNowBtn = modal.querySelector('.buy-now-btn');
+    const addToCartBtn = modal.querySelector('.add-to-cart-btn');
+
+    // Login overlay elements
+    const loginOverlay = document.getElementById('login-overlay');
+    const loginBtn = document.getElementById('login-btn');
+    const cancelLoginBtn = document.getElementById('cancel-login-btn');
+
+    // Function to open modal with data
+    function openModal(productCard) {
+        const title = productCard.dataset.title || '';
+        const price = productCard.dataset.price || '';
+        const imgSrc = productCard.dataset.img || '';
+        const description = productCard.dataset.description || '';
+
+        modalTitle.textContent = title;
+        modalPrice.textContent = price;
+        modalImage.src = imgSrc;
+        modalImage.alt = title;
+        modalDescription.textContent = description;
+
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scroll
+    }
+
+    // Function to close modal
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Attach click on all view details buttons
+    document.querySelectorAll('.view-details-btn').forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const productCard = e.target.closest('.product-card');
+            if (productCard) {
+                openModal(productCard);
+            }
+        });
+    });
+
+    // Close modal on close button click
+    modalCloseBtn.addEventListener('click', closeModal);
+
+    // Close modal on overlay click outside content
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    // Close modal on pressing Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    // Handle Buy Now button click
+    buyNowBtn.addEventListener('click', () => {
+        loginOverlay.classList.add('active');
+    });
+
+    // Handle Add to Cart button click
+    addToCartBtn.addEventListener('click', () => {
+        alert('Product added to cart!');
+        closeModal();
+    });
+
+    // Handle login button click
+    loginBtn.addEventListener('click', () => {
+        alert('Redirecting to login page...');
+        loginOverlay.classList.remove('active');
+    });
+
+    // Handle cancel login button click
+    cancelLoginBtn.addEventListener('click', () => {
+        loginOverlay.classList.remove('active');
+    });
+</script>
+
+</body>
+</html>

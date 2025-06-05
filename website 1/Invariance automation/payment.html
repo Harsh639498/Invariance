@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Payment</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        header {
+            background-color: #232f3e;
+            color: white;
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        header .logo {
+            cursor: pointer;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .payment-option {
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
+        }
+
+        .payment-option h4 {
+            margin: 0 0 0.5rem 0;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .btn {
+            background-color: #ffd814;
+            border: none;
+            width: 100%;
+            padding: 0.6rem 0;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #111;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #f7ca00;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #232f3e;
+            color: white;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        .upi-section {
+            background-color: #e9f5ff;
+            padding: 1rem;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .upi-input {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Invariance Automation</div>
+</header>
+
+<main>
+    <h2>Payment Details</h2>
+    <div id="product-info"></div>
+    <h3>Select Payment Method</h3>
+    <div class="payment-options">
+        <div class="payment-option">
+            <h4>Credit/Debit Card</h4>
+            <form id="card-form">
+                <input type="text" placeholder="Card Number" required />
+                <input type="text" placeholder="Cardholder Name" required />
+                <input type="text" placeholder="Expiry Date (MM/YY)" required />
+                <input type="text" placeholder="CVV" required />
+                <button type="submit" class="btn">Pay Now</button>
+            </form>
+        </div>
+        <div class="payment-option upi-section">
+            <h4>UPI Payment</h4>
+            <input type="text" class="upi-input" placeholder="Enter UPI ID" required />
+            <button class="btn" onclick="payWithUPI()">Pay Now</button>
+        </div>
+    </div>
+</main>
+
+<footer>
+    &copy; 2020 Invariance Automation - All rights reserved.
+</footer>
+
+<script>
+    // Get URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const productTitle = urlParams.get('title');
+    const productPrice = urlParams.get('price');
+
+    // Display product information
+    document.getElementById('product-info').innerHTML = `
+        <h3>${productTitle}</h3>
+        <p>Price: ₹${productPrice}</p>
+    `;
+
+    // Handle card payment submission
+    document.getElementById('card-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        alert('Payment successful via Card!');
+        // Here you would handle the backend payment processing
+    });
+
+    // Function to handle UPI payment
+    function payWithUPI() {
+        const upiId = document.querySelector('.upi-input').value;
+        if (upiId) {
+            alert(`Payment successful with UPI ID: ${upiId}!`);
+            // Here you would handle the backend payment processing
+        } else {
+            alert('Please enter a UPI ID.');
+        }
+    }
+</script>
+
+</body>
+</html>

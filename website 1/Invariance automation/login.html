@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login/Register Modal</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <section class="hero">
+    <div class="overlay">
+      <h1>Welcome to Invariance Portal</h1>
+      <button onclick="openModal('loginModal')">Login</button>
+      <button onclick="openModal('registerModal')">Register</button>
+    </div>
+  </section>
+
+  <!-- Login Modal -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('loginModal')">&times;</span>
+      <h2>Login</h2>
+      <input type="email" placeholder="Email" id="loginEmail">
+      <input type="password" placeholder="Password" id="loginPassword">
+      <button onclick="handleLogin()">Login</button>
+      <p><a href="#" onclick="switchModal('loginModal', 'forgotModal')">Forgot Password?</a></p>
+      <p>Don't have an account? <a href="#" onclick="switchModal('loginModal', 'registerModal')">Register</a></p>
+    </div>
+  </div>
+
+  <!-- Register Modal -->
+  <div class="modal" id="registerModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('registerModal')">&times;</span>
+      <h2>Register</h2>
+      <input type="text" placeholder="Full Name" id="registerName">
+      <input type="email" placeholder="Email" id="registerEmail">
+      <input type="password" placeholder="Password" id="registerPassword">
+      <input type="username" placeholder="Username" id="username">
+      <button onclick="handleRegister()">Register</button>
+      <p>Already have an account? <a href="#" onclick="switchModal('registerModal', 'loginModal')">Login</a></p>
+    </div>
+  </div>
+
+  <!-- Forgot Password Modal -->
+  <div class="modal" id="forgotModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('forgotModal')">&times;</span>
+      <h2>Forgot Password</h2>
+      <input type="email" placeholder="Enter your Email" id="forgotEmail">
+      <button onclick="handleForgot()">Send OTP</button>
+      <p>Back to <a href="#" onclick="switchModal('forgotModal', 'loginModal')">Login</a></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+<style>
+    * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, html {
+  font-family: Arial, sans-serif;
+  height: 100%;
+}
+
+/* Hero Section */
+.hero {
+  background-image: url("https://storage.googleapis.com/a1aa/image/939174b6-c4f4-4ed8-5028-3385bac0e630.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 60px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.overlay h1 {
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+}
+
+.overlay button {
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #00bcd4;
+  color: white;
+  transition: 0.3s;
+}
+
+.overlay button:hover {
+  background-color: #0097a7;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 30px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 10px;
+  text-align: center;
+  animation: fadeIn 0.4s;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.modal-content button {
+  background-color: #00bcd4;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.modal-content button:hover {
+  background-color: #008c9e;
+}
+
+.modal-content a {
+  color: #00bcd4;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.modal-content a:hover {
+  text-decoration: underline;
+}
+
+.close {
+  float: right;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {opacity: 0}
+  to {opacity: 1}
+}
+
+/* Responsive */
+@media screen and (max-width: 500px) {
+  .modal-content {
+    margin-top: 30%;
+  }
+
+  .overlay h1 {
+    font-size: 1.8rem;
+  }
+}
+
+</style>
+<script>
+    function openModal(id) {
+  document.getElementById(id).style.display = 'block';
+}
+
+function closeModal(id) {
+  document.getElementById(id).style.display = 'none';
+}
+
+function switchModal(fromId, toId) {
+  closeModal(fromId);
+  openModal(toId);
+}
+
+// Example handlers
+function handleLogin() {
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  alert(`Logging in with Email: ${email}, Password: ${password}`);
+  // Add backend API call here
+ function handleLogin() {
+  const username = document.getElementById('loginEmail').value;  // Assuming input for username
+  const password = document.getElementById('loginPassword').value;
+
+  fetch('http://localhost:5000/login', { 
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username, password })
+  })
+  .then(res => {
+    if (!res.ok) {
+      return res.json().then(err => { throw new Error(err.message); });
+    }
+    return res.json();
+  })
+  .then(data => {
+    alert(`✅ ${data.message}`);
+    console.log('Logged in as:', data.username);
+    // Redirect or store data here
+  })
+  .catch(err => {
+    alert(`❌ Login failed: ${err.message}`);
+  });
+}
+}
+
+function handleRegister() {
+  const name = document.getElementById('registerName').value;
+  const email = document.getElementById('registerEmail').value;
+  const password = document.getElementById('registerPassword').value;
+  const username= document.getElementById('username').value;
+  alert(`Registering user: ${name}, Email: ${email}`);
+  // Add backend API call here
+  fetch('http://localhost:5000/register', { 
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ fullname, email, username, password })
+  })
+  .then(res => {
+    if (!res.ok) {
+      return res.json().then(err => { throw new Error(err.message); });
+    }
+    return res.json();
+  })
+  .then(data => {
+    alert(`✅ ${data.message}`);
+    // Optionally switch to login modal here
+  })
+  .catch(err => {
+    alert(`❌ Registration failed: ${err.message}`);
+  });
+}
+
+function handleForgot() {
+  const email = document.getElementById('forgotEmail').value;
+  alert(`OTP sent to Email: ${email}`);
+  // Add backend OTP logic here
+  fetch('http://localhost:5000/forgot-password', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email: userEmail })
+})
+ .then(res => res.json())
+ .then(data => alert(data.message))
+ .catch(err => alert('Error: ' + err.message));
+}
+
+// Optional: Close modal when clicking outside the modal-content
+window.onclick = function(event) {
+  const modals = document.querySelectorAll('.modal');
+  modals.forEach(modal => {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+}
+
+</script>

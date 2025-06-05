@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PCB Assembly</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        /* Reset & base */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f9fafb;
+            margin: 0;
+            padding: 30px 15px;
+            color: #1e293b;
+        }
+        /* Container */
+        .form-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        .form-left {
+            flex: 1 1 60%;
+            min-width: 300px;
+        }
+        .price-section {
+            flex: 1 1 35%;
+            min-width: 300px;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            position: sticky;
+            top: 20px; /* Sticks price section to top-right */
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2563eb;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        /* Form groups */
+        .form-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px 24px;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        .form-field {
+            flex: 1 1 calc(50% - 12px);
+            min-width: 260px;
+        }
+        label {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            color: #334155;
+            font-size: 15px;
+        }
+        label .tooltip-icon {
+            color: #4ade80;
+            margin-left: 8px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        label .tooltip-icon:hover {
+            color: #22c55e;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="file"],
+        select {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 15px;
+            border-radius: 8px;
+            border: 1.5px solid #cbd5e1;
+            background: #f8fafc;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            outline-offset: 2px;
+        }
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="file"]:focus,
+        select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 8px rgba(37, 99, 235, 0.4);
+            background: #ffffff;
+        }
+        input[disabled] {
+            background: #e2e8f0;
+            cursor: not-allowed;
+            color: #64748b;
+        }
+        .required {
+            color: #ef4444;
+            margin-left: 4px;
+        }
+        /* Radio toggle */
+        .radio-toggle {
+            display: flex;
+            gap: 16px;
+            margin-top: 8px;
+        }
+        .radio-toggle label {
+            flex: none;
+            padding: 10px 26px;
+            border-radius: 25px;
+            background-color: #e2e8f0;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            border: 1.5px solid transparent;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        }
+        .radio-toggle input[type="radio"] {
+            display: none;
+        }
+        .radio-toggle input[type="radio"]:checked + label {
+            background-color: #2563eb;
+            color: white;
+            border-color: #2563eb;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+        }
+        /* Lead time section */
+        .lead-time {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px 30px;
+            margin-top: 25px;
+        }
+        .lead-time-item {
+            flex: 1 1 280px;
+            min-width: 260px;
+        }
+        .lead-time-item label {
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 15px;
+        }
+        /* Upload section */
+        .upload-section {
+            margin-top: 30px;
+        }
+        .upload-section label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 15px;
+            color: #334155;
+        }
+        .upload-section input[type="file"] {
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1.5px solid #cbd5e1;
+            width: 100%;
+            background: #f8fafc;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .upload-section input[type="file"]:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 8px rgba(37, 99, 235, 0.4);
+            background: #ffffff;
+        }
+        /* Price section */
+        .price-section h3 {
+            color: #2563eb;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .price-section p {
+            margin: 8px 0;
+            font-size: 15px;
+            color: #334155;
+        }
+        .price-section button {
+            width: 100%;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            border: grey;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 20px;
+        }
+        .price-section button:hover {
+            background: #1d4ed8;
+        }
+        /* Responsive adjustment */
+        @media (max-width: 900px) {
+            .form-container {
+                flex-direction: column;
+            }
+            .form-right, .price-section {
+                flex: 1 1 100%;
+            }
+            .price-section {
+                position: static; /* Disable sticky on mobile */
+                order: -1; /* Ensures price section is at the top on mobile */
+            }
+            .form-field, .lead-time-item {
+                flex: 1 1 100%;
+                min-width: 100%;
+                min-height: 100%;
+            }
+            .form-group {
+                gap: 20px 0;
+            }
+            .radio-toggle label {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="price-section">
+            <h2>Calculated Price (₹)</h2>
+        <p>Service: PCB Assembly</p>
+        <p>Lead Time: 7 WD</p>
+        <p id="qtyDisplay">Quantity: -</p>
+        <p id="unitPrice">Unit Price: -</p>
+        <p id="orderPrice">Order Price: -</p>
+        <p id="tax">Tax (%): 18</p>
+        <p id="totalPrice">Total Price: -</p>
+            <button onclick="calculateTotal()">Calculate Price</button>
+            <button onclick="addToCart()">Add to Cart</button>
+        </div>
+        <div class="form-left">
+            <h2>PCB Assembly</h2>
+            <div class="form-group">
+                <div class="form-field">
+                    <label for="assemblyName">PCB Assembly Name<span class="required">*</span>
+                        <i class="fas fa-circle-question tooltip-icon" title="Name of the PCB assembly"></i>
+                    </label>
+                    <input type="text" id="assemblyName" placeholder="Enter PCB assembly name" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-field">
+                    <label for="assemblyQty">Assembly Qty (PCB)
+                        <i class="fas fa-circle-question tooltip-icon" title="Total number of PCB assemblies"></i>
+                    </label>
+                    <input type="number" id="assemblyQty" placeholder="PCB assembly Qty" min="1" />
+                </div>
+                <div class="form-field">
+                    <label for="throughHoleQty">Nr of Through Hole Components/PCB<span class="required">*</span>
+                        <i class="fas fa-circle-question tooltip-icon" title="Number of through-hole components per PCB"></i>
+                    </label>
+                    <input type="number" id="throughHoleQty" placeholder="Nr of through hole components/PCB" min="0" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-field">
+                    <label for="smdQty">Nr of SMD Components/PCB<span class="required">*</span>
+                        <i class="fas fa-circle-question tooltip-icon" title="Number of SMD components per PCB"></i>
+                    </label>
+                    <input type="number" id="smdQty" placeholder="Nr of SMD components/PCB" min="0" required />
+                </div>
+                <div class="form-field">
+                    <label for="totalComponents">Total Nr of Components/PCB
+                        <i class="fas fa-circle-question tooltip-icon" title="Sum of all components per PCB"></i>
+                    </label>
+                    <input type="number" id="totalComponents" placeholder="Total number of components/PCB" disabled />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-field">
+                    <label for="bgaQty">Nr of BGA/QFN/LGA Components/PCB<span class="required">*</span>
+                        <i class="fas fa-circle-question tooltip-icon" title="Number of BGA/QFN/LGA components per PCB"></i>
+                    </label>
+                    <input type="number" id="bgaQty" placeholder="Nr of BGA/QFN/LGA Components/PCB" min="0" required />
+                </div>
+                <div class="form-field">
+                    <label>Conformal Coating:
+                        <i class="fas fa-circle-question tooltip-icon" title="Select if conformal coating is required"></i>
+                    </label>
+                    <div class="radio-toggle">
+                        <input type="radio" id="conformalCoatingYes" name="conformalCoating" value="yes" />
+                        <label for="conformalCoatingYes">Yes</label>
+                        <input type="radio" id="conformalCoatingNo" name="conformalCoating" value="no" checked />
+                        <label for="conformalCoatingNo">No</label>
+                    </div>
+                </div>
+            </div>
+            <div class="quote section">
+                <label class="section-label" style="font-weight: 700; font-size: 18px; color: #2563eb;">Lead Times</label>
+                <div class="lead-time">
+                    <div class="lead-time-item">
+                        <label for="pcbProdLeadTime">PCB Production Lead Time:</label>
+                        <select id="pcbProdLeadTime">
+                            <option>10 Working Days</option>
+                            <option>15 Working Days</option>
+                        </select>
+                    </div>
+                    <div class="lead-time-item">
+                        <label for="pcbAssemblyLeadTime">PCB Assembly Lead Time:</label>
+                        <select id="pcbAssemblyLeadTime">
+                            <option>10 Working Days</option>
+                            <option>15 Working Days</option>
+                        </select>
+                    </div>
+                    <div class="lead-time-item">
+                        <label for="componentSourcingLeadTime">Component Sourcing Lead Time:<span class="required">*</span></label>
+                        <select id="componentSourcingLeadTime">
+                            <option>7-10 Working Days</option>
+                            <option>10-14 Working Days</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="upload-section">
+                    <label for="bomFile" style="margin-top: 20px;">Bill of Material:<span class="required">*</span></label>
+                    <input type="file" id="bomFile" name="bom" accept=".csv,.xlsx,.xls" required />
+                    <label for="popFile" style="margin-top: 20px;">Pick and Place:<span class="required">*</span></label>
+                    <input type="file" id="popFile" name="pop" accept=".csv,.xlsx,.xls" required />
+                </div>
+            </div>
+        </div>
+   <script>
+    function calculateTotal() {
+        const quantity = Number(document.getElementById('assemblyQty').value);
+        const throughHoleQty = Number(document.getElementById('throughHoleQty').value);
+        const smdQty = Number(document.getElementById('smdQty').value);
+        const bgaQty = Number(document.getElementById('bgaQty').value);
+        
+        // Validate input
+        if (quantity < 1) {
+            alert('Quantity must be at least 1.');
+            return;
+        }
+        if (throughHoleQty < 0 || smdQty < 0 || bgaQty < 0) {
+            alert('Component quantities must be non-negative.');
+            return;
+        }
+
+        // Assuming a simple pricing model
+        const unitPrice = 100; // Example unit price
+        const orderPrice = unitPrice * quantity;
+        const taxRate = 0.18; // 18% tax
+        const totalPrice = orderPrice + (orderPrice * taxRate);
+
+        // Update the result display
+        document.getElementById("qtyDisplay").innerText = `Quantity: ${quantity}`;
+        document.getElementById("unitPrice").innerText = `Unit Price: ₹${unitPrice}`;
+        document.getElementById("orderPrice").innerText = `Order Price: ₹${orderPrice}`;
+        document.getElementById("totalPrice").innerText = `Total Price: ₹${totalPrice.toFixed(2)}`;
+    }
+
+    function addToCart() {
+        // Validate required fields
+        const assemblyNameInput = document.getElementById('assemblyName');
+        const throughHoleInput = document.getElementById('throughHoleQty');
+        const smdInput = document.getElementById('smdQty');
+        const bgaInput = document.getElementById('bgaQty');
+
+        if (!assemblyNameInput.value) {
+            alert('Please enter the PCB Assembly Name.');
+            return;
+        }
+        if (!throughHoleInput.value || throughHoleInput.value < 0) {
+            alert('Please enter a valid number of Through Hole Components.');
+            return;
+        }
+        if (!smdInput.value || smdInput.value < 0) {
+            alert('Please enter a valid number of SMD Components.');
+            return;
+        }
+        if (!bgaInput.value || bgaInput.value < 0) {
+            alert('Please enter a valid number of BGA/QFN/LGA Components.');
+            return;
+        }
+        if (!document.getElementById('bomFile').files.length) {
+            alert('Please upload Bill of Material.');
+            return;
+        }
+        if (!document.getElementById('popFile').files.length) {
+            alert('Please upload Pick and Place file.');
+            return;
+        }
+
+        // Collect form data
+        const formData = {
+            assemblyName: assemblyNameInput.value,
+            quantity: parseInt(document.getElementById('assemblyQty').value) || 0,
+            throughHoleComponents: parseInt(throughHoleInput.value) || 0,
+            smdComponents: parseInt(smdInput.value) || 0,
+            bgaComponents: parseInt(bgaInput.value) || 0,
+            // Add other fields as necessary
+        };
+
+        // Simulate backend submission (e.g., storing in localStorage)
+        console.log('Adding to cart:', formData);
+        localStorage.setItem('cartItem_' + Date.now(), JSON.stringify(formData));
+        alert('PCB Assembly added to cart successfully!');
+    }
+
+    // Event listeners
+    document.getElementById('throughHoleQty').addEventListener('input', calculateTotal);
+    document.getElementById('smdQty').addEventListener('input', calculateTotal);
+    document.getElementById('bgaQty').addEventListener('input', calculateTotal);
+    document.getElementById('assemblyQty').addEventListener('input', calculateTotal);
+</script>
+
+</body>
+</html>
